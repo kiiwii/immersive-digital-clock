@@ -4,7 +4,7 @@ Welcome to the Immersive Digital Clock project! This repository contains a colle
 
 ## Features
 - **Clock Designs**: Explore various clock designs such as:
-  - Breath
+  - Breathing Effect Clock
   - Chill
   - Cockpit Window
   - Lava Bubble
@@ -12,10 +12,13 @@ Welcome to the Immersive Digital Clock project! This repository contains a colle
   - Water Reflection
 - **Open Source**: Contribute to the project and customize the designs to suit your needs.
 
+## Demo site
+https://time.aiprime.us/
+
 ## Getting Started
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/immersive-digital-clock.git
+   git clone https://github.com/kiiwii/immersive-digital-clock.git
    ```
 2. Open the `index.html` file in your browser to view the available clock designs.
 

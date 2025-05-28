@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Reflection Clock</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      overflow: hidden;
+    }
+
+    .clock {
+      position: relative;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .clock-time {
+      font-size: 8vw;
+      font-weight: bold;
+    }
+
+    .clock-date {
+      font-size: 2vw;
+      margin-top: 1rem;
+      color: #cccccc;
+    }
+
+    .reflection {
+      position: absolute;
+      top: 100%;
+      width: 100%;
+      transform: scaleY(-1);
+      opacity: 0.3;
+      filter: blur(2px);
+      animation: ripple 8s infinite linear;
+    }
+
+    @keyframes ripple {
+      0% { transform: scaleY(-1) translateY(0); }
+      50% { transform: scaleY(-1) translateY(8px); }
+      100% { transform: scaleY(-1) translateY(0); }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTZJ7T27PR"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PTZJ7T27PR');
+  </script>
+</head>
+<body>
+  <div class="clock">
+    <div id="time" class="clock-time">--:--:--</div>
+    <div id="date" class="clock-date">Loading...</div>
+    <div class="reflection">
+      <div id="time-reflect" class="clock-time">--:--:--</div>
+      <div id="date-reflect" class="clock-date">Loading...</div>
+    </div>
+  </div>
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+      const timeStr = `${h}:${m}:${s}`;
+
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const day = days[now.getDay()];
+      const date = now.getDate();
+      const month = months[now.getMonth()];
+      const year = now.getFullYear();
+      const dateStr = `${day}, ${month} ${date}, ${year}`;
+
+      document.getElementById('time').textContent = timeStr;
+      document.getElementById('date').textContent = dateStr;
+      document.getElementById('time-reflect').textContent = timeStr;
+      document.getElementById('date-reflect').textContent = dateStr;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>

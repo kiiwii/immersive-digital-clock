@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fancy Digital Clock</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #0f2027;
+      font-family: 'Orbitron', sans-serif;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .animated-bg {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 20% 20%, #00aaff33, transparent 40%),
+                  radial-gradient(circle at 80% 80%, #00ffff22, transparent 40%),
+                  linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      animation: subtleMove 60s linear infinite;
+      z-index: -2;
+    }
+
+    @keyframes subtleMove {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-5%, -5%) rotate(180deg); }
+      100% { transform: translate(0, 0) rotate(360deg); }
+    }
+
+    .clock {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 40px 60px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
+      color: #00ffff;
+      font-size: 4rem;
+      letter-spacing: 0.1em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .clock::before, .clock::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      border-radius: 20px;
+      z-index: -1;
+      background: linear-gradient(45deg, #00ffff, #00aaff, #0077ff);
+      background-size: 600% 600%;
+      animation: neon 15s ease infinite;
+      filter: blur(20px);
+      opacity: 0.4;
+    }
+
+    @keyframes neon {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .date {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      color: #ffffffaa;
+      text-align: center;
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTZJ7T27PR"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PTZJ7T27PR');
+  </script>
+</head>
+<body>
+  <div class="animated-bg"></div>
+  <div class="clock" id="clock">
+    <div id="time">--:--:--</div>
+    <div class="date" id="date">Loading...</div>
+  </div>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      const seconds = String(now.getSeconds()).padStart(2, '0');
+      const timeString = `${hours}:${minutes}:${seconds}`;
+
+      const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const day = days[now.getDay()];
+      const date = now.getDate();
+      const month = months[now.getMonth()];
+      const year = now.getFullYear();
+      const dateString = `${day}, ${month} ${date}, ${year}`;
+
+      document.getElementById('time').textContent = timeString;
+      document.getElementById('date').textContent = dateString;
+    }
+
+    setInterval(updateClock, 1000);
+    updateClock();
+  </script>
+</body>
+</html>
+

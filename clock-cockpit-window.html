@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Creative Clocks Showcase</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: 'Segoe UI', sans-serif;
+      overflow: hidden;
+    }
+    body {
+      display: flex;
+      height: 100vh;
+      width: 300vw;
+      flex-direction: row;
+    }
+    .clock-section {
+      flex: 0 0 100vw;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Clock 1: Cockpit Window Style */
+    .sky-clock {
+      background: radial-gradient(circle at center, #002233 30%, #000 100%);
+      color: #fff;
+    }
+    .window {
+      width: 50vmin;
+      height: 75vmin;
+      background: url('https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?ixlib=rb-4.0.3&auto=format&fit=crop&w=934&q=80') center/cover;
+      border-radius: 40% / 50%;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.5), 0 0 60px #0af;
+      border: 12px solid #234;
+      position: relative;
+    }
+    .window::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border-radius: inherit;
+      border: 2px solid rgba(255,255,255,0.05);
+    }
+    .time-overlay {
+      position: absolute;
+      right: 8vw;
+      color: #e0faff;
+      font-size: 10vw;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    /* Clock 2: Circular Orbit Clock */
+    .orbit-clock {
+      background: radial-gradient(ellipse at center, #000010 20%, #000000 100%);
+    }
+    .orbit {
+      position: relative;
+      width: 60vmin;
+      height: 60vmin;
+      border-radius: 50%;
+      border: 1px dashed #0ff4;
+      animation: spin 60s linear infinite;
+    }
+    .orbit span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transform: rotate(var(--angle));
+    }
+    .orbit span div {
+      transform: rotate(calc(-1 * var(--angle)));
+      font-size: 2rem;
+      color: #0ff;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Clock 3: Lava Bubble Clock */
+    .lava-clock {
+      background: linear-gradient(to bottom, #110000 0%, #330000 100%);
+    }
+    .bubble-clock {
+      width: 50vmin;
+      height: 50vmin;
+      border-radius: 50%;
+      background: radial-gradient(circle at top left, #ff3300, #660000);
+      box-shadow: 0 0 50px #ff2200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 6vw;
+      font-weight: bold;
+      color: white;
+      text-shadow: 0 0 10px #f30;
+    }
+  </style>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PTZJ7T27PR"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-PTZJ7T27PR');
+  </script>
+</head>
+<body>
+
+  <!-- Clock 1: Cockpit Window Style -->
+  <div class="clock-section sky-clock">
+    <div class="window"></div>
+    <div class="time-overlay" id="skyTime">--:--</div>
+  </div>
+
+  <!-- Clock 2: Orbit Clock -->
+  <div class="clock-section orbit-clock">
+    <div class="orbit">
+      <span style="--angle: 0deg;"><div id="orbitH">00</div></span>
+      <span style="--angle: 120deg;"><div id="orbitM">00</div></span>
+      <span style="--angle: 240deg;"><div id="orbitS">00</div></span>
+    </div>
+  </div>
+
+  <!-- Clock 3: Lava Bubble Clock -->
+  <div class="clock-section lava-clock">
+    <div class="bubble-clock" id="lavaTime">--:--</div>
+  </div>
+
+  <script>
+    function updateClocks() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, '0');
+      const m = String(now.getMinutes()).padStart(2, '0');
+      const s = String(now.getSeconds()).padStart(2, '0');
+
+      document.getElementById('skyTime').textContent = `${h}:${m}`;
+      document.getElementById('lavaTime').textContent = `${h}:${m}`;
+
+      document.getElementById('orbitH').textContent = h;
+      document.getElementById('orbitM').textContent = m;
+      document.getElementById('orbitS').textContent = s;
+    }
+    setInterval(updateClocks, 1000);
+    updateClocks();
+  </script>
+</body>
+</html>
+

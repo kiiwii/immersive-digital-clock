@@ -15,6 +15,11 @@ Welcome to the Immersive Digital Clock project! This repository contains a colle
 ## Demo site
 https://time.aiprime.us/
 
+<img width="1285" alt="Screenshot 2025-05-29 at 06 00 16" src="https://github.com/user-attachments/assets/e8f12c4e-daa4-46af-8f02-1c9b629cdf21" />
+
+<img width="1425" alt="Screenshot 2025-05-29 at 06 01 12" src="https://github.com/user-attachments/assets/ed7ba44e-c197-4a25-82d9-73e2aee6c873" />
+
+
 ## Getting Started
 1. Clone the repository:
    ```bash

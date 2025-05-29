@@ -49,7 +49,6 @@
       top: 20px;
       right: 20px;
     }
-    /* 刷新按钮图标 */
     .refresh-icon {
       width: 20px;
       height: 20px;
@@ -86,7 +85,6 @@
       50% { transform: scaleY(0.1); }
       100% { transform: scaleY(1); }
     }
-    /* 全屏按钮图标 */
     .fullscreen-icon {
       width: 16px;
       height: 16px;
@@ -159,11 +157,47 @@
       loadClock(currentIndex);
     });
 
+    function isTeslaBrowser() {
+	  // Get screen dimensions
+	  const width = window.screen.width;
+	  const height = window.screen.height;
+
+	  // Check if resolution matches Tesla’s typical 1920x1200 or 1200x1920 (for orientation)
+	  const isTeslaResolution = (width === 1920 && height === 1200) || (width === 1200 && height === 1920);
+
+	  // Check for touchscreen capabilities
+	  const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+	  // Check if Chome
+	  const ua = navigator.userAgent;
+	  const isMinimalChrome = /Chrome/.test(ua) && !/Mobile|Android|iPhone|iPad/i.test(ua);
+
+	  // alert(" isT?: " + isTeslaResolution + hasTouch + isMinimalChrome);
+	  // Return true if all conditions are met
+	  return isTeslaResolution && hasTouch && isMinimalChrome;
+    }
+
+    function triggerTeslaFullscreenRedirect() {
+      // const target = 'https://time.aiprime.us';
+
+      let target = window.location.href.replace(/\/$/, '');
+
+      // Display the target URL in a popup for debugging
+      // alert("DEBUG: Current Target URL is: " + target);
+
+      const jumpUrl = `https://v.qq.com/search_redirect.html?url=https://www.1905.com/api/redirec.html?redirect_url=${target}?www.1905.com`;
+      window.location.href = jumpUrl;
+    }
+
     document.getElementById('fullscreen-btn').addEventListener('click', () => {
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
+      if (isTeslaBrowser()) {
+        triggerTeslaFullscreenRedirect();
       } else {
-        document.exitFullscreen();
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          document.exitFullscreen();
+        }
       }
     });
 

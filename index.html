@@ -177,27 +177,33 @@
 	  return isTeslaResolution && hasTouch && isMinimalChrome;
     }
 
-    function triggerTeslaFullscreenRedirect() {
-      // const target = 'https://time.aiprime.us';
+    function isLikelyTeslaFullscreen() {
+      alert("DEBUG: isLikelyTeslaFullscreen" + history.length + document.referrer + window.parent.location);
+      return history.length <= 1 && document.referrer === '' && window.location === window.parent.location;
+    }
 
-      let target = window.location.href.replace(/\/$/, '');
+    function triggerTeslaFullscreenRedirect() {
+      // if (isLikelyTeslaFullscreen) return;
+
+      let target = window.location.origin;
 
       // Display the target URL in a popup for debugging
       // alert("DEBUG: Current Target URL is: " + target);
 
+      // const target = 'https://time.aiprime.us';
       const jumpUrl = `https://v.qq.com/search_redirect.html?url=https://www.1905.com/api/redirec.html?redirect_url=${target}?www.1905.com`;
       window.location.href = jumpUrl;
     }
 
     document.getElementById('fullscreen-btn').addEventListener('click', () => {
-      if (isTeslaBrowser()) {
-        triggerTeslaFullscreenRedirect();
-      } else {
-        if (!document.fullscreenElement) {
-          document.documentElement.requestFullscreen();
+      if (!document.fullscreenElement) {
+        if (isTeslaBrowser()) {
+          triggerTeslaFullscreenRedirect();
         } else {
-          document.exitFullscreen();
+          document.documentElement.requestFullscreen();
         }
+      } else {
+        document.exitFullscreen();
       }
     });
 
